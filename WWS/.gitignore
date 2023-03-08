@@ -1,0 +1,6 @@
+*lib
+*bin
+*.idea
+*local_driver
+pyvenv.cfg
+*local_driver/
