@@ -15,12 +15,12 @@ from selenium.webdriver.common import by
 #     print(items.get_attribute('href'))
 
 
-def search_products(url: str) -> [str]:
+def search_products(url: str, tag) -> [str]:
     my_links = {}
     browser = Chrome()
 
     browser.get(url)
-    search = browser.find_elements(by.By.TAG_NAME, 'a')
+    search = browser.find_elements(by.By.TAG_NAME, f'{tag}')
 
     for links in search:
         my_links.setdefault(f'{links.text}',
@@ -29,19 +29,19 @@ def search_products(url: str) -> [str]:
     return my_links
 
 
-def search_collections(url: str, number: int, options: str) -> [str]:
+def search_collections(url: str, number: int, tag: str, options: str) -> [str]:
     """
-    URL: url search
+    URL: search url
+    TAG: search tag
     NUMBER: 1 == return link of collection
             2 == return search of products in links of collections
     OPTIONS: options of filters
     """
 
-    my_links = {}
     browser = Chrome()
 
     browser.get(url)
-    search = browser.find_elements(by.By.TAG_NAME, 'a')
+    search = browser.find_elements(by.By.TAG_NAME, f'{tag}')
 
     for links in search:
         if links.text.lower() == options:
@@ -52,5 +52,8 @@ def search_collections(url: str, number: int, options: str) -> [str]:
             else:
                 return search_products(links_collections)
 
-my_search = search_collections('https://templodela.com', 2, 'ENTRAR EM CONTATO')
-print(my_search)
+
+
+my_Search = search_products('https://templodela.com', 'a')
+
+other_search = search_collections('https://templodela.com', '')
