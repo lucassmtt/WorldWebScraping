@@ -15,7 +15,7 @@ from selenium.webdriver.common import by
 #     print(items.get_attribute('href'))
 
 
-def search_products(url: str, tag) -> [str]:
+def search_products(url: str, tag) -> {str}:
     my_links = {}
     browser = Chrome()
 
@@ -29,13 +29,13 @@ def search_products(url: str, tag) -> [str]:
     return my_links
 
 
-def search_collections(url: str, number: int, tag: str, options: str) -> [str]:
+def search_collections(url: str, number: int, tag: str, keywords: [str]) -> {str}:
     """
     URL: search url
     TAG: search tag
     NUMBER: 1 == return link of collection
             2 == return search of products in links of collections
-    OPTIONS: options of filters
+    KEYWORDS: filters of keywords
     """
 
     browser = Chrome()
@@ -44,16 +44,18 @@ def search_collections(url: str, number: int, tag: str, options: str) -> [str]:
     search = browser.find_elements(by.By.TAG_NAME, f'{tag}')
 
     for links in search:
-        if links.text.lower() == options:
+        if links.text.lower() in (keyword for keyword in keywords):
             links_collections = links.get_attribute('href')
 
             if number == 1:
                 return links_collections
             else:
-                return search_products(links_collections)
+                return search_products(links_collections, tag='a')
 
 
 
-my_Search = search_products('https://templodela.com', 'a')
+products = my_search = search_collections(url='https://templodela.com', number=2, tag='a', keywords=[
+    'coleções', 'ver tudo', 'produtos', 'products', 'ver todos'])
 
-other_search = search_collections('https://templodela.com', '')
+for item, link in products.items():
+    print(item, link)
