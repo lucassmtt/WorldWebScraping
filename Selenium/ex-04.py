@@ -22,5 +22,5 @@ def search_link_in_site(url: str, tag_name: str, text: str) -> [str] or None:
     return link_nested
 
 
-my_search = search_link_in_site('https://templodela.com', 'a', 'VER TUDO')
+my_search = search_link_in_site('https://www.americanas.com.br/', 'a', 'VER TUDO')
 print(my_search)
