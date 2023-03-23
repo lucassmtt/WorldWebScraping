@@ -7,56 +7,55 @@ Exercise Description:
 LINK EXERCISE: https://selenium.dunossauro.live/aula_04.html
 """
 
-
 from selenium.webdriver import Chrome
-from selenium.webdriver.common.by import By
-from time import sleep
 from pprint import pprint
 
 
-def search_elements():
-    pass
+def get_links(browser, element, url) -> [dict]:
+    """
+    Get links by select element
 
-my_browser = Chrome()
-my_browser.get("https://selenium.dunossauro.live/aula_04.html")
-
-sleep(1)
-
-aside = my_browser.find_element(By.TAG_NAME, 'aside')
-
-sleep(1)
-
-link_in_aside = aside.find_elements(By.TAG_NAME, 'a')
-
-sleep(1)
-
-my_links_in_aside = dict()
-for link in link_in_aside:
+    Browser: Your favorite browser
+    Element: Your select element
+    Url: Your select url for Web Scraping
 
     """
-    my_links_in_aside[link.text] = link.get_attribute("href")
-    
-    both are right
-    """
+    from selenium.webdriver.common.by import By
+    from time import sleep
 
-    my_links_in_aside.setdefault(
-        link.text,
-        link.get_attribute("href")
-    )
 
-# for k, v in my_links_in_aside.items():
-#     print(k, v)
-# print('-'*30)
-# pprint(my_links_in_aside)
+    my_browser = browser()
+    my_browser.get(url)
+    sleep(1)
 
-main = my_browser.find_element(By.TAG_NAME, 'main')
+    element = my_browser.find_element(By.TAG_NAME, f'{element}')
+    sleep(1)
 
-link_in_main = main.find_elements(By.TAG_NAME, 'a')
+    link_in_element = element.find_elements(By.TAG_NAME, 'a')
+    sleep(1)
 
-exercise_links = {}
-for i in link_in_main:
-    exercise_links.setdefault(i.text, i.get_attribute("href"))
+    my_links_in_web_element = dict()
+    for link in link_in_element:
+        my_links_in_web_element.setdefault(
+            link.text,
+            link.get_attribute("href")
+        )
 
-pprint(my_links_in_aside)
-print('-'*60)
-pprint(exercise_links)
+    return my_links_in_web_element
+
+
+exercise_01 = get_links(
+    browser=Chrome,
+    element='aside',
+    url='https://selenium.dunossauro.live/aula_04.html'
+)
+pprint(exercise_01)
+
+print('-'*40)
+
+exercise_02 = get_links(
+    browser=Chrome,
+    element='main',
+    url='https://selenium.dunossauro.live/aula_04.html'
+)
+pprint(exercise_02)
