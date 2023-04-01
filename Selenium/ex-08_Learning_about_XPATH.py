@@ -19,5 +19,6 @@ url = 'https://rennerocha.github.io/xpath/'
 browser = Chrome()
 browser.get(url)
 sleep(2)
-element = browser.find_element(By.XPATH, "/html")
-pprint(element.text)
+element = browser.find_elements(By.XPATH, "//h1[@data-section='ingredients']/parent::div//li")
+for i in element:
+    print(i.text)
