@@ -59,3 +59,30 @@ try:
 
 finally:
     driver.quit()
+
+
+# import smtplib
+# from email.mime.text import MIMEText
+
+# # Configurações do e-mail
+# smtp_server = 'smtp.gmail.com'
+# smtp_port = 587
+# email = 'seuemail@gmail.com'
+# password = 'suasenha'
+# destinatario = 'destinatario@example.com'
+
+# # Cria o objeto MIMEText com o conteúdo do e-mail
+# conteudo = 'Olá, este é um e-mail enviado por Python!'
+# mensagem = MIMEText(conteudo)
+
+# # Configura os campos "De", "Para" e "Assunto" da mensagem
+# mensagem['From'] = email
+# mensagem['To'] = destinatario
+# mensagem['Subject'] = 'E-mail enviado por Python'
+
+# # Conecta-se ao servidor SMTP e envia a mensagem
+# smtp = smtplib.SMTP(smtp_server, smtp_port)
+# smtp.starttls()
+# smtp.login(email, password)
+# smtp.sendmail(email, destinatario, mensagem.as_string())
+# smtp.quit()
